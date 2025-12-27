@@ -1,0 +1,24 @@
+FROM node:20-alpine AS development
+
+WORKDIR /app
+
+# Instalar pnpm
+RUN corepack enable && corepack prepare pnpm@8.15.0 --activate
+
+# Copiar archivos de dependencias
+COPY package.json pnpm-lock.yaml* ./
+
+# Instalar todas las dependencias (incluyendo devDependencies)
+RUN pnpm install --no-frozen-lockfile
+
+# Copiar archivos de configuración
+COPY tsconfig.json ./
+
+# Copiar código fuente
+COPY src ./src
+
+# Exponer puerto
+EXPOSE 3000
+
+# Comando por defecto (se puede sobrescribir en docker-compose)
+CMD ["pnpm", "dev"]

@@ -1,0 +1,29 @@
+{
+  "name": "descuentapp-monorepo",
+  "version": "1.0.0",
+  "description": "Monorepo para DescuentApp - Clean Architecture & DDD",
+  "scripts": {
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f",
+    "docker:rebuild": "docker compose up -d --build",
+    "docker:clean": "docker compose down -v",
+    "backend:dev": "pnpm --filter backend dev",
+    "backend:build": "pnpm --filter backend build",
+    "backend:test": "pnpm --filter backend test",
+    "frontend:start": "pnpm --filter frontend start",
+    "frontend:android": "pnpm --filter frontend android",
+    "frontend:ios": "pnpm --filter frontend ios",
+    "install:all": "pnpm install -r"
+  },
+  "packageManager": "pnpm@8.15.0",
+  "keywords": [
+    "descuentapp",
+    "monorepo",
+    "clean-architecture",
+    "ddd"
+  ],
+  "author": "",
+  "license": "MIT",
+  "private": true
+}

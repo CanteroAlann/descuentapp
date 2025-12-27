@@ -1,0 +1,15 @@
+node_modules/
+.expo/
+.expo-shared/
+npm-debug.*
+pnpm-debug.log*
+.pnpm-store
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+.env
+.env.local
