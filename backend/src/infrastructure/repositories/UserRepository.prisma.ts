@@ -2,8 +2,8 @@ import {  prisma } from '@infrastructure/database/prisma';
 import type { IUserRepository } from '@domain/repositories/IUserRepository';
 import type { CreateUserDTO } from '@application/dtos/UserDTO';
 import type { UserResponseDTO } from '@application/dtos/UserDTO';
-import { Email, emailToString } from '@domain/value-objects/Email';
-
+import type { User } from '@domain/entities/User';
+import { logger } from '@infrastructure/logger/logger';
 
 export const UserRepositoryPrisma = (): IUserRepository => {
   return {
@@ -14,11 +14,11 @@ export const UserRepositoryPrisma = (): IUserRepository => {
       return user;
     },
 
-    async findByEmail(email: Email): Promise<UserResponseDTO| null> {
-        const emailToFind = emailToString(email);
+    async findByEmail(email: string): Promise<User| null> {
       const user = await prisma.user.findUnique({
-        where: { email: emailToFind },
+        where: { email },
       });
+      logger.debug('User fetched by email', { user });
       return user;
     }
     ,

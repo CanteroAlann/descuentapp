@@ -1,6 +1,6 @@
 import { IUserRepository } from '@domain/repositories/IUserRepository';
-
-import  { CreateUserDTO, UserResponseDTO} from '@application/dtos/UserDTO';
+import { User } from '@domain/entities/User';
+import { UserResponseDTO } from '@application/dtos/UserDTO';
 import { err, ok, Result } from '@domain/shared/Result';
 import { HashService } from '@domain/services/hash.service';
 import { logger } from '@infrastructure/logger/logger';
@@ -18,14 +18,14 @@ export type CreateUserError = {
 };
 
 export const createUser = async (
-  userData: CreateUserDTO,
+  userData: User,
   deps: Dependencies
 ): Promise<Result<UserResponseDTO, CreateUserError>> => {
   try {
     const { repo, hasher} = deps;
     const passwordHashed = await hasher.hash(userData.password);
     logger.debug('Password hashed', { passwordHashed });
-    userData.password = passwordHashed;
+    userData = { ...userData, password: passwordHashed };
     const newUser : UserResponseDTO = await repo.save(userData);
     logger.debug('User created successfully', newUser);
 

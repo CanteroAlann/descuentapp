@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { Dependencies } from '@application/use-cases/CreateUserUseCase';
+import { Dependencies } from '@application/use-cases/CreateUser';
 import { createUserController } from '../controllers/UserController';
 
 export const userRoute = (deps: Dependencies): Router => {

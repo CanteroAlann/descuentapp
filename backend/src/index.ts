@@ -8,6 +8,8 @@ import { createHashService } from '@infrastructure/services/hasher';
 import { logger } from '@infrastructure/logger/logger';
 import { requestLoggerMiddleware } from '@interface-adapters/middlewares/requestLogger.middleware';
 import { errorHandlerMiddleware } from '@interface-adapters/middlewares/errorHandler.middleware';
+import { authRoute } from '@interface-adapters/routes/auth.route';
+import { createJwtTokener } from '@infrastructure/services/tokenizer';
 
 dotenv.config();
 
@@ -23,6 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(requestLoggerMiddleware());
 
 app.use(userRoute({ repo: UserRepositoryPrisma(), hasher: createHashService() }));
+app.use(authRoute({ repo: UserRepositoryPrisma(), hasher: createHashService(), tokener: createJwtTokener() }));
 
 // Health check
 app.get('/health', (_req: Request, res: Response) => {

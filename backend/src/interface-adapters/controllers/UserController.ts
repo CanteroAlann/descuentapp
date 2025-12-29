@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { getUser } from '@application/use-cases/GetUserUseCase';
-import { Dependencies } from '@application/use-cases/CreateUserUseCase';
-import { createUser } from '@application/use-cases/CreateUserUseCase';
+import { getUser } from '@application/use-cases/GetUser';
+import { Dependencies } from '@application/use-cases/CreateUser';
+import { createUser } from '@application/use-cases/CreateUser';
 import { logger } from '@infrastructure/logger/logger';
 
 export const createUserController = (deps: Dependencies) => {
