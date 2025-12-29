@@ -1,0 +1,32 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+}
+
+model User {
+    id        String   @id @default(uuid()) @db.Uuid
+    email     String   @unique
+    fullName  String
+    createdAt DateTime @default(now())
+
+    @@map("users")
+}
+
+model Discount {
+    id                 String   @id @default(uuid()) @db.Uuid
+    title              String
+    description        String
+    discountPercentage Float
+    storeName          String
+    validUntil         DateTime
+    isActive           Boolean  @default(true)
+
+    // Para soportar búsquedas "nearby" (Location) desde infraestructura.
+    latitude  Float?
+    longitude Float?
+
+    @@map("discounts")
+}

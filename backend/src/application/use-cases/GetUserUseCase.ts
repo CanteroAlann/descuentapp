@@ -1,17 +1,22 @@
 
 import { IUserRepository } from '@domain/repositories/IUserRepository';
-import { User } from '@domain/entities/User';
+import type { User } from '@domain/entities/User';
+import { err, ok, Result } from '@domain/shared/Result';
 
-export class GetUserUseCase {
-  constructor(private userRepository: IUserRepository) {}
+export type GetUserError = {
+  readonly type: 'UserNotFound';
+  readonly userId: string;
+};
 
-  async execute(userId: string): Promise<User | null> {
-    const user = await this.userRepository.findById(userId);
-    
-    if (!user) {
-      throw new Error('User not found');
-    }
+export const getUser = async (
+  userId: string,
+  userRepository: IUserRepository
+): Promise<Result<User, GetUserError>> => {
+  const user = await userRepository.findById(userId);
 
-    return user;
+  if (!user) {
+    return err({ type: 'UserNotFound', userId });
   }
-}
+
+  return ok(user);
+};

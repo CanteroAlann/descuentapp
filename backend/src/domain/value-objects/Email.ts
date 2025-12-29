@@ -1,20 +1,23 @@
+import { err, ok, Result } from '@domain/shared/Result';
 
-export class Email {
-  private readonly value: string;
+export type Email = string & { readonly __brand: 'Email' };
 
-  constructor(email: string) {
-    if (!this.isValid(email)) {
-      throw new Error('Invalid email format');
-    }
-    this.value = email;
+export type InvalidEmailError = {
+  readonly type: 'InvalidEmail';
+  readonly email: string;
+};
+
+const isValidEmail = (email: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
+export const parseEmail = (email: string): Result<Email, InvalidEmailError> => {
+  if (!isValidEmail(email)) {
+    return err({ type: 'InvalidEmail', email });
   }
 
-  private isValid(email: string): boolean {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
+  return ok(email as Email);
+};
 
-  toString(): string {
-    return this.value;
-  }
-}
+export const emailToString = (email: Email): string => email;

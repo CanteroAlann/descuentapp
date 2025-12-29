@@ -1,24 +1,47 @@
-
 import { Request, Response } from 'express';
-import { GetUserUseCase } from '@application/use-cases/GetUserUseCase';
+import { getUser } from '@application/use-cases/GetUserUseCase';
+import { Dependencies } from '@application/use-cases/CreateUserUseCase';
+import { createUser } from '@application/use-cases/CreateUserUseCase';
+import { logger } from '@infrastructure/logger/logger';
 
-export class UserController {
-  constructor(private getUserUseCase: GetUserUseCase) {}
-
-  async getUser(req: Request, res: Response): Promise<void> {
-    try {
+export const createUserController = (deps: Dependencies) => {
+  return {
+    getUser: async (req: Request, res: Response): Promise<void> => {
       const { id } = req.params;
-      const user = await this.getUserUseCase.execute(id);
-      
+      const result = await getUser(id, deps.repo);
+
+      if (!result.ok) {
+        res.status(404).json({
+          success: false,
+          message: 'User not found',
+        });
+        return;
+      }
+
       res.status(200).json({
         success: true,
-        data: user,
+        data: result.value,
       });
-    } catch (error) {
-      res.status(404).json({
-        success: false,
-        message: error instanceof Error ? error.message : 'Unknown error',
+    },
+    createUser: async (req: Request, res: Response): Promise<void> => {
+      const { fullName, email, password } = req.body;
+      logger.debug('Creating user', { fullName, email });
+
+      const result = await createUser({ fullName, email, password }, deps);
+
+      if (!result.ok) {
+        logger.debug('User creation failed', { reason: result.error.reason });
+        res.status(400).json({
+          success: result.error.type === 'UserCreationFailed' ? false : undefined,
+          message: 'Failed to create user',
+        });
+        return;
+      }
+
+      res.status(201).json({
+        success: true,
+        data: result.value,
       });
     }
-  }
-}
+  };
+};

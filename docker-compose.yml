@@ -38,6 +38,7 @@ services:
       DB_NAME: ${DB_NAME:-descuentapp}
       DB_USER: ${DB_USER:-postgres}
       DB_PASSWORD: ${DB_PASSWORD:-postgres123}
+      DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres123}@postgres:${DB_PORT:-5432}/${DB_NAME:-descuentapp}?schema=public
       JWT_SECRET: ${JWT_SECRET:-your-super-secret-key}
       JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
     ports:
@@ -49,10 +50,12 @@ services:
       - descuentapp-network
     volumes:
       - ./backend/src:/app/src:cached
+      - ./backend/prisma:/app/prisma:cached
+      - ./backend/prisma.config.ts:/app/prisma.config.ts:cached
       - ./backend/package.json:/app/package.json:cached
       - ./backend/tsconfig.json:/app/tsconfig.json:cached
       - backend_node_modules:/app/node_modules
-    command: pnpm dev
+    command: sh -c "pnpm install --no-frozen-lockfile && pnpm prisma:generate && pnpm dev"
 
   # pgAdmin (Opcional - Para gestión de base de datos)
   pgadmin:

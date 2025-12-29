@@ -1,11 +1,22 @@
+import type { Email } from '@domain/value-objects/Email';
 
-export class User {
-  constructor(
-    public readonly id: string,
-    public readonly email: string,
-    public readonly fullName: string,
-    public readonly createdAt: Date
-  ) {}
+export type User = Readonly<{
+  id: string;
+  email: Email;
+  fullName: string;
+  createdAt: Date;
+}>;
 
-  // Domain logic methods here
-}
+export type CreateUserParams = Readonly<{
+  id: string;
+  email: Email;
+  fullName: string;
+  createdAt: Date;
+}>;
+
+export const createUser = (params: CreateUserParams): User => ({
+  id: params.id,
+  email: params.email,
+  fullName: params.fullName,
+  createdAt: params.createdAt,
+});

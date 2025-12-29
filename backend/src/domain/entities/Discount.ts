@@ -1,17 +1,16 @@
+export type Discount = Readonly<{
+  id: string;
+  title: string;
+  description: string;
+  discountPercentage: number;
+  storeName: string;
+  validUntil: Date;
+  isActive: boolean;
+}>;
 
-export class Discount {
-  constructor(
-    public readonly id: string,
-    public readonly title: string,
-    public readonly description: string,
-    public readonly discountPercentage: number,
-    public readonly storeName: string,
-    public readonly validUntil: Date,
-    public readonly isActive: boolean
-  ) {}
+export type CreateDiscountParams = Readonly<Discount>;
 
-  // Domain logic
-  isValid(): boolean {
-    return this.isActive && this.validUntil > new Date();
-  }
-}
+export const createDiscount = (params: CreateDiscountParams): Discount => ({ ...params });
+
+export const isDiscountValid = (discount: Discount, now: Date = new Date()): boolean =>
+  discount.isActive && discount.validUntil > now;

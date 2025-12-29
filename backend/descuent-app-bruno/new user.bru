@@ -1,0 +1,16 @@
+meta {
+  name: new user
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/users
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
