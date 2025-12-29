@@ -25,7 +25,7 @@ export const createUserController = (deps: Dependencies) => {
     },
     createUser: async (req: Request, res: Response): Promise<void> => {
       const { fullName, email, password } = req.body;
-      logger.debug('Creating user', { fullName, email });
+      logger.debug('Creating user', { fullName, email,password });
 
       const result = await createUser({ fullName, email, password }, deps);
 

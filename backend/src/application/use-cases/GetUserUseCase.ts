@@ -1,6 +1,6 @@
 
 import { IUserRepository } from '@domain/repositories/IUserRepository';
-import type { User } from '@domain/entities/User';
+import type { UserResponseDTO } from '@application/dtos/UserDTO';
 import { err, ok, Result } from '@domain/shared/Result';
 
 export type GetUserError = {
@@ -11,7 +11,7 @@ export type GetUserError = {
 export const getUser = async (
   userId: string,
   userRepository: IUserRepository
-): Promise<Result<User, GetUserError>> => {
+): Promise<Result<UserResponseDTO, GetUserError>> => {
   const user = await userRepository.findById(userId);
 
   if (!user) {
