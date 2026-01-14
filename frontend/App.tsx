@@ -1,16 +1,28 @@
+/**
+ * @module App
+ * @description Punto de entrada de la aplicación DescuentApp.
+ * Configura providers globales: QueryClient, SafeArea, Navigation.
+ */
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { queryClient } from './src/infrastructure/query/query-client';
+import { DiscountsScreen } from './src/features/discounts';
 
+/**
+ * Componente raíz de la aplicación
+ * Envuelve la app con los providers necesarios:
+ * - SafeAreaProvider: Manejo de áreas seguras (notch, home indicator)
+ * - QueryClientProvider: TanStack Query para server state
+ */
 export default function App() {
   return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text className="text-2xl font-bold text-primary-600">
-        DescuentApp
-      </Text>
-      <Text className="text-gray-600 mt-2">
-        Clean Architecture + DDD + React Native
-      </Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <QueryClientProvider client={queryClient}>
+        <DiscountsScreen />
+        <StatusBar style="auto" />
+      </QueryClientProvider>
+    </SafeAreaProvider>
   );
 }

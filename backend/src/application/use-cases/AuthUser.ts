@@ -4,7 +4,6 @@ import { TokenService } from "@domain/services/token.service";
 import { Result , ok , err} from "@domain/shared/Result";
 import { UserLoginDTO } from "@application/dtos/UserDTO";
 import { logger } from "@infrastructure/logger/logger";
-import { log } from "console";
 
 export type Dependencies = {
   repo: IUserRepository;
