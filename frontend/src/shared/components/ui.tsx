@@ -24,14 +24,14 @@ interface LoadingSpinnerProps {
 
 export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   size = 'large',
-  color = '#6366f1',
+  color,
   text,
   testID = 'loading-spinner',
 }) => (
-  <View testID={testID} className="flex-1 justify-center items-center">
-    <ActivityIndicator size={size} color={color} />
+  <View testID={testID} className="flex-1 justify-center items-center bg-background">
+    <ActivityIndicator size={size} color={color ?? 'hsl(239, 84%, 67%)'} />
     {text && (
-      <Text className="text-gray-500 mt-3 text-base">{text}</Text>
+      <Text className="text-muted mt-3 text-base">{text}</Text>
     )}
   </View>
 );
@@ -52,17 +52,17 @@ interface ButtonProps {
 }
 
 const buttonVariants = {
-  primary: 'bg-primary-500 active:bg-primary-600',
-  secondary: 'bg-gray-200 active:bg-gray-300',
-  outline: 'bg-transparent border-2 border-primary-500 active:bg-primary-50',
-  ghost: 'bg-transparent active:bg-gray-100',
+  primary: 'bg-primary active:bg-primary/80',
+  secondary: 'bg-card active:bg-card/80',
+  outline: 'bg-transparent border-2 border-primary active:bg-primary/10',
+  ghost: 'bg-transparent active:bg-card',
 };
 
 const textVariants = {
-  primary: 'text-white',
-  secondary: 'text-gray-900',
-  outline: 'text-primary-500',
-  ghost: 'text-primary-500',
+  primary: 'text-primary-foreground',
+  secondary: 'text-foreground',
+  outline: 'text-primary',
+  ghost: 'text-primary',
 };
 
 const sizeVariants = {
@@ -102,7 +102,7 @@ export const Button: React.FC<ButtonProps> = ({
     {loading ? (
       <ActivityIndicator 
         size="small" 
-        color={variant === 'primary' ? '#fff' : '#6366f1'} 
+        color={variant === 'primary' ? 'hsl(0, 0%, 100%)' : 'hsl(239, 84%, 67%)'} 
       />
     ) : (
       <Text 
@@ -135,13 +135,13 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   onAction,
   testID = 'empty-state',
 }) => (
-  <View testID={testID} className="flex-1 justify-center items-center px-8 py-12">
+  <View testID={testID} className="flex-1 justify-center items-center px-8 py-12 bg-background">
     <Text className="text-5xl mb-4">{emoji}</Text>
-    <Text className="text-gray-900 font-semibold text-lg text-center mb-2">
+    <Text className="text-foreground font-semibold text-lg text-center mb-2">
       {title}
     </Text>
     {description && (
-      <Text className="text-gray-500 text-center mb-6">
+      <Text className="text-muted text-center mb-6">
         {description}
       </Text>
     )}
@@ -171,12 +171,12 @@ export const ErrorState: React.FC<ErrorStateProps> = ({
   onRetry,
   testID = 'error-state',
 }) => (
-  <View testID={testID} className="flex-1 justify-center items-center px-8 py-12">
+  <View testID={testID} className="flex-1 justify-center items-center px-8 py-12 bg-background">
     <Text className="text-5xl mb-4">😕</Text>
-    <Text className="text-gray-900 font-semibold text-lg text-center mb-2">
+    <Text className="text-foreground font-semibold text-lg text-center mb-2">
       Error
     </Text>
-    <Text className="text-gray-500 text-center mb-6">
+    <Text className="text-muted text-center mb-6">
       {message}
     </Text>
     {onRetry && (
@@ -200,7 +200,7 @@ interface DividerProps {
 }
 
 export const Divider: React.FC<DividerProps> = ({ className = '' }) => (
-  <View className={`h-px bg-gray-200 ${className}`} />
+  <View className={`h-px bg-border ${className}`} />
 );
 
 // ============================================================================
@@ -214,19 +214,19 @@ interface BadgeProps {
 }
 
 const badgeVariants = {
-  primary: 'bg-primary-100',
+  primary: 'bg-primary/20',
   success: 'bg-green-100',
   warning: 'bg-amber-100',
   error: 'bg-red-100',
-  gray: 'bg-gray-100',
+  gray: 'bg-card',
 };
 
 const badgeTextVariants = {
-  primary: 'text-primary-700',
+  primary: 'text-primary',
   success: 'text-green-700',
   warning: 'text-amber-700',
   error: 'text-red-700',
-  gray: 'text-gray-700',
+  gray: 'text-muted',
 };
 
 export const Badge: React.FC<BadgeProps> = ({
@@ -241,5 +241,45 @@ export const Badge: React.FC<BadgeProps> = ({
     <Text className={`text-xs font-medium ${badgeTextVariants[variant]}`}>
       {text}
     </Text>
+  </View>
+);
+
+// ============================================================================
+// Card
+// ============================================================================
+
+interface CardProps {
+  title?: string;
+  description?: string;
+  children?: React.ReactNode;
+  style?: ViewStyle;
+  testID?: string;
+}
+
+export const Card: React.FC<CardProps> = ({
+  title,
+  description,
+  children,
+  style,
+  testID = 'card',
+}) => (
+  <View
+    testID={testID}
+    style={style}
+    className="bg-card border border-border rounded-2xl p-4"
+  >
+    {title && (
+      <Text className="text-card-foreground font-semibold text-lg">
+        {title}
+      </Text>
+    )}
+
+    {description && (
+      <Text className="text-muted mt-1">
+        {description}
+      </Text>
+    )}
+
+    {children}
   </View>
 );

@@ -18,10 +18,10 @@ interface DiscountsScreenProps {
  */
 const DiscountsHeader: React.FC = () => (
   <View className="px-4 pb-4">
-    <Text className="text-2xl font-bold text-gray-900 mb-1">
+    <Text className="text-2xl font-bold text-foreground mb-1">
       Descuentos
     </Text>
-    <Text className="text-gray-500">
+    <Text className="text-muted">
       Encuentra las mejores ofertas cerca de ti
     </Text>
   </View>
@@ -46,7 +46,7 @@ export const DiscountsScreen: React.FC<DiscountsScreenProps> = ({
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-50" edges={['top']}>
+    <SafeAreaView className="flex-1 bg-background" edges={['top']}>
       <DiscountList
         filters={{ onlyActive: true }}
         onDiscountPress={handleDiscountPress}

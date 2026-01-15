@@ -1,3 +1,54 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/**
+ * Design Tokens (CSS Variables)
+ * Usamos HSL "sin hsl()" para poder aplicar opacidades desde Tailwind:
+ * Tailwind => hsl(var(--token) / <alpha-value>)
+ */
+:root {
+  /* Ayuda a que inputs/scrollbars (web) se rendericen en modo claro */
+  color-scheme: light;
+
+  /* Core */
+  --background: 0 0% 100%;        /* blanco */
+  --foreground: 222 47% 11%;      /* slate-900 aprox */
+
+  /* Surfaces */
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+
+  /* Brand */
+  --primary: 239 84% 67%;         /* indigo-500 aprox */
+  --primary-foreground: 0 0% 100%;
+
+  /* UI */
+  --muted: 215 16% 47%;           /* texto secundario */
+  --border: 214 32% 91%;          /* borde suave */
+  --input: 210 40% 96%;           /* fondo input (slate-100 aprox) */
+}
+
+.dark {
+  color-scheme: dark;
+
+  --background: 222 84% 5%;       /* slate-950 aprox */
+  --foreground: 210 40% 98%;      /* slate-50 aprox */
+
+  --card: 222 47% 11%;            /* slate-900 aprox */
+  --card-foreground: 210 40% 98%;
+
+  --primary: 239 84% 67%;         /* misma marca (podés ajustarlo si querés) */
+  --primary-foreground: 0 0% 100%;
+
+  --muted: 215 20% 65%;           /* slate-400 aprox */
+  --border: 215 28% 17%;          /* slate-800 aprox */
+  --input: 222 47% 11%;           /* cercano a card */
+}
+
+/* (Opcional) defaults para web. En RN no impacta, pero no molesta. */
+html,
+body {
+  background-color: hsl(var(--background) / 1);
+  color: hsl(var(--foreground) / 1);
+}

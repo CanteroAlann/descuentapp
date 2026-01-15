@@ -1,38 +1,38 @@
 /** @type {import('tailwindcss').Config} */
+const withOpacity = (cssVarName) => `hsl(var(${cssVarName}) / <alpha-value>)`;
+
 module.exports = {
   content: [
     "./App.{js,jsx,ts,tsx}",
     "./src/**/*.{js,jsx,ts,tsx}"
   ],
   presets: [require("nativewind/preset")],
+
+  // Importante: el tema cambia al togglear la clase "dark"
+  darkMode: ["class"],
+
   theme: {
     extend: {
       colors: {
+        // Tokens semánticos (NO "bg-white", NO "text-gray-900")
+        background: withOpacity("--background"),
+        foreground: withOpacity("--foreground"),
+
+        card: {
+          DEFAULT: withOpacity("--card"),
+          foreground: withOpacity("--card-foreground"),
+        },
+
         primary: {
-          50: '#eef2ff',
-          100: '#e0e7ff',
-          200: '#c7d2fe',
-          300: '#a5b4fc',
-          400: '#818cf8',
-          500: '#6366f1', // Indigo principal
-          600: '#4f46e5',
-          700: '#4338ca',
-          800: '#3730a3',
-          900: '#312e81',
+          DEFAULT: withOpacity("--primary"),
+          foreground: withOpacity("--primary-foreground"),
         },
-        secondary: {
-          50: '#fdf4ff',
-          100: '#fae8ff',
-          200: '#f5d0fe',
-          300: '#f0abfc',
-          400: '#e879f9',
-          500: '#d946ef',
-          600: '#c026d3',
-          700: '#a21caf',
-          800: '#86198f',
-          900: '#701a75',
-        },
+
+        muted: withOpacity("--muted"),
+        border: withOpacity("--border"),
+        input: withOpacity("--input"),
       },
+
       fontFamily: {
         sans: ['System', 'sans-serif'],
       },

@@ -8,6 +8,7 @@
  * URL base de la API - se obtiene de variables de entorno
  */
 export const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000';
+console.log('API_BASE_URL:', API_BASE_URL);
 
 /**
  * Configuración de la API

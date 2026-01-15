@@ -101,14 +101,14 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
     <View testID={testID} className="w-full px-6">
       {/* Campo: Nombre Completo */}
       <View className="mb-4">
-        <Text className="text-gray-700 font-medium mb-2">
+        <Text className="text-foreground font-medium mb-2">
           Nombre Completo
         </Text>
         <TextInput
           testID={`${testID}-fullname-input`}
           className={`
-            border rounded-xl px-4 py-3 text-base
-            ${errors.fullName ? 'border-red-500' : 'border-gray-300'}
+            border rounded-xl px-4 py-3 text-base bg-input text-foreground
+            ${errors.fullName ? 'border-red-500' : 'border-border'}
           `}
           placeholder="Ej: Juan Pérez"
           value={formData.fullName}
@@ -130,14 +130,14 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 
       {/* Campo: Email */}
       <View className="mb-4">
-        <Text className="text-gray-700 font-medium mb-2">
+        <Text className="text-foreground font-medium mb-2">
           Email
         </Text>
         <TextInput
           testID={`${testID}-email-input`}
           className={`
-            border rounded-xl px-4 py-3 text-base
-            ${errors.email ? 'border-red-500' : 'border-gray-300'}
+            border rounded-xl px-4 py-3 text-base bg-input text-foreground
+            ${errors.email ? 'border-red-500' : 'border-border'}
           `}
           placeholder="ejemplo@email.com"
           value={formData.email}
@@ -161,14 +161,14 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 
       {/* Campo: Contraseña */}
       <View className="mb-6">
-        <Text className="text-gray-700 font-medium mb-2">
+        <Text className="text-foreground font-medium mb-2">
           Contraseña
         </Text>
         <TextInput
           testID={`${testID}-password-input`}
           className={`
-            border rounded-xl px-4 py-3 text-base
-            ${errors.password ? 'border-red-500' : 'border-gray-300'}
+            border rounded-xl px-4 py-3 text-base bg-input text-foreground
+            ${errors.password ? 'border-red-500' : 'border-border'}
           `}
           placeholder="Mínimo 6 caracteres"
           value={formData.password}

@@ -30,10 +30,10 @@ interface DiscountListProps {
 const LoadingState: React.FC<{ testID?: string }> = ({ testID }) => (
   <View 
     testID={`${testID}-loading`}
-    className="flex-1 justify-center items-center py-20"
+    className="flex-1 justify-center items-center py-20 bg-background"
   >
-    <ActivityIndicator size="large" color="#6366f1" />
-    <Text className="text-gray-500 mt-4 text-base">
+    <ActivityIndicator size="large" color="hsl(239, 84%, 67%)" />
+    <Text className="text-muted mt-4 text-base">
       Cargando descuentos...
     </Text>
   </View>
@@ -49,21 +49,21 @@ const ErrorState: React.FC<{
 }> = ({ error, onRetry, testID }) => (
   <View 
     testID={`${testID}-error`}
-    className="flex-1 justify-center items-center py-20 px-6"
+    className="flex-1 justify-center items-center py-20 px-6 bg-background"
   >
     <Text className="text-5xl mb-4">😕</Text>
-    <Text className="text-gray-900 font-semibold text-lg text-center mb-2">
+    <Text className="text-foreground font-semibold text-lg text-center mb-2">
       Algo salió mal
     </Text>
-    <Text className="text-gray-500 text-center mb-6">
+    <Text className="text-muted text-center mb-6">
       {error.message || 'No pudimos cargar los descuentos'}
     </Text>
     <Pressable
       testID={`${testID}-retry`}
       onPress={onRetry}
-      className="bg-primary-500 px-6 py-3 rounded-full active:bg-primary-600"
+      className="bg-primary px-6 py-3 rounded-full active:bg-primary/80"
     >
-      <Text className="text-white font-semibold">Reintentar</Text>
+      <Text className="text-primary-foreground font-semibold">Reintentar</Text>
     </Pressable>
   </View>
 );
@@ -74,13 +74,13 @@ const ErrorState: React.FC<{
 const EmptyState: React.FC<{ testID?: string }> = ({ testID }) => (
   <View 
     testID={`${testID}-empty`}
-    className="flex-1 justify-center items-center py-20 px-6"
+    className="flex-1 justify-center items-center py-20 px-6 bg-background"
   >
     <Text className="text-5xl mb-4">🏷️</Text>
-    <Text className="text-gray-900 font-semibold text-lg text-center mb-2">
+    <Text className="text-foreground font-semibold text-lg text-center mb-2">
       No hay descuentos disponibles
     </Text>
-    <Text className="text-gray-500 text-center">
+    <Text className="text-muted text-center">
       Pronto aparecerán nuevas ofertas. ¡Vuelve más tarde!
     </Text>
   </View>

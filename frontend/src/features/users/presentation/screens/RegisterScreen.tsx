@@ -18,10 +18,10 @@ interface RegisterScreenProps {
  */
 const RegisterHeader: React.FC = () => (
   <View className="px-6 pb-6">
-    <Text className="text-3xl font-bold text-gray-900 mb-2">
+    <Text className="text-3xl font-bold text-foreground mb-2">
       Crear Cuenta
     </Text>
-    <Text className="text-gray-500 text-base">
+    <Text className="text-muted text-base">
       Completa el formulario para registrarte
     </Text>
   </View>
@@ -66,7 +66,7 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white" edges={['top']}>
+    <SafeAreaView className="flex-1 bg-background" edges={['top']}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         className="flex-1"

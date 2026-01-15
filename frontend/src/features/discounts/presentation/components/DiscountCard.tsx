@@ -65,18 +65,18 @@ export const DiscountCard: React.FC<DiscountCardProps> = ({
       testID={testID}
       onPress={() => onPress?.(discount)}
       className={`
-        bg-white rounded-2xl p-4 mb-3 mx-4
-        shadow-sm border border-gray-100
+        bg-card rounded-2xl p-4 mb-3 mx-4
+        shadow-sm border border-border
         ${expired ? 'opacity-60' : ''}
-        active:scale-[0.98] active:bg-gray-50
+        active:scale-[0.98] active:bg-card/80
       `}
     >
       {/* Header: Porcentaje y Estado */}
       <View className="flex-row justify-between items-start mb-2">
-        <View className="bg-primary-500 rounded-full px-3 py-1">
+        <View className="bg-primary rounded-full px-3 py-1">
           <Text 
             testID={`${testID}-percentage`}
-            className="text-white font-bold text-lg"
+            className="text-primary-foreground font-bold text-lg"
           >
             -{discount.discountPercentage}%
           </Text>
@@ -110,7 +110,7 @@ export const DiscountCard: React.FC<DiscountCardProps> = ({
       {/* Título */}
       <Text 
         testID={`${testID}-title`}
-        className="text-gray-900 font-semibold text-base mb-1"
+        className="text-card-foreground font-semibold text-base mb-1"
         numberOfLines={2}
       >
         {discount.title}
@@ -119,19 +119,19 @@ export const DiscountCard: React.FC<DiscountCardProps> = ({
       {/* Descripción */}
       <Text 
         testID={`${testID}-description`}
-        className="text-gray-600 text-sm mb-3"
+        className="text-muted text-sm mb-3"
         numberOfLines={2}
       >
         {discount.description}
       </Text>
 
       {/* Footer: Tienda y Fecha */}
-      <View className="flex-row justify-between items-center pt-2 border-t border-gray-100">
+      <View className="flex-row justify-between items-center pt-2 border-t border-border">
         <View className="flex-row items-center">
-          <View className="w-6 h-6 bg-gray-200 rounded-full mr-2" />
+          <View className="w-6 h-6 bg-border rounded-full mr-2" />
           <Text 
             testID={`${testID}-store`}
-            className="text-gray-700 font-medium text-sm"
+            className="text-foreground font-medium text-sm"
           >
             {discount.storeName}
           </Text>
@@ -139,7 +139,7 @@ export const DiscountCard: React.FC<DiscountCardProps> = ({
         
         <Text 
           testID={`${testID}-validity`}
-          className={`text-xs ${expired ? 'text-red-500' : 'text-gray-500'}`}
+          className={`text-xs ${expired ? 'text-red-500' : 'text-muted'}`}
         >
           {expired ? 'Venció: ' : 'Hasta: '}
           {formatDate(discount.validUntil)}

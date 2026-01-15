@@ -9,12 +9,13 @@ import {
   type CreateUserInput,
   type IUserRepository, 
 } from '../../domain';
+import { API_BASE_URL } from '@/infrastructure/api';
 
 /**
  * Endpoints de la API de usuarios
  */
 const ENDPOINTS = {
-  BASE: '/users',
+  BASE: `${API_BASE_URL}/users`,
   BY_EMAIL: (email: string) => `/users/${email}`,
 } as const;
 
