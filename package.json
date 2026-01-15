@@ -25,5 +25,10 @@
   ],
   "author": "",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "pnpm": {
+    "overrides": {
+      "postcss": "8.4.49"
+    }
+  }
 }

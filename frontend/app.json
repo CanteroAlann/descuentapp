@@ -3,6 +3,7 @@
     "name": "DescuentApp",
     "slug": "descuentapp",
     "version": "1.0.0",
+    "entryPoint": "./index.js",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -30,6 +31,9 @@
     },
     "extra": {
       "apiUrl": "http://localhost:3000"
-    }
+    },
+    "plugins": [
+      "expo-asset"
+    ]
   }
 }
