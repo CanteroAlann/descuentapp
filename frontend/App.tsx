@@ -12,6 +12,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { queryClient } from './src/infrastructure/query/query-client';
 import { DiscountsScreen } from './src/features/discounts';
 import { RegisterScreen } from './src/features/users';
+import { LoginScreen } from './src/features/auth/presentation/screens/LoginScreen';
 
 // ============================================================================
 // Theme Context
@@ -76,7 +77,7 @@ export default function App() {
     <SafeAreaProvider>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
-          <RegisterScreen />
+          <LoginScreen />
           <StatusBar style="auto" />
         </ThemeProvider>
       </QueryClientProvider>

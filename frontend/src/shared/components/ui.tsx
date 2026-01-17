@@ -8,7 +8,9 @@ import {
   Text, 
   ActivityIndicator, 
   Pressable, 
-  type ViewStyle 
+  TextInput,
+  type ViewStyle,
+  type TextInputProps,
 } from 'react-native';
 
 // ============================================================================
@@ -281,5 +283,47 @@ export const Card: React.FC<CardProps> = ({
     )}
 
     {children}
+  </View>
+);
+
+// ============================================================================
+// Input
+// ============================================================================
+
+interface InputProps extends TextInputProps {
+  label?: string;
+  error?: string;
+  containerStyle?: ViewStyle;
+  testID?: string;
+}
+
+export const Input: React.FC<InputProps> = ({
+  label,
+  error,
+  containerStyle,
+  testID = 'input',
+  ...textInputProps
+}) => (
+  <View style={containerStyle} testID={`${testID}-container`}>
+    {label && (
+      <Text className="text-foreground font-medium text-sm mb-2">
+        {label}
+      </Text>
+    )}
+    <TextInput
+      testID={testID}
+      className={`
+        bg-card border rounded-xl px-4 py-3
+        text-foreground text-base
+        ${error ? 'border-red-500' : 'border-border'}
+      `}
+      placeholderTextColor="hsl(240, 5%, 45%)"
+      {...textInputProps}
+    />
+    {error && (
+      <Text className="text-red-500 text-sm mt-1" testID={`${testID}-error`}>
+        {error}
+      </Text>
+    )}
   </View>
 );

@@ -9,6 +9,7 @@ import axios, {
   type InternalAxiosRequestConfig 
 } from 'axios';
 import { apiConfig, API_ERROR_CODES } from './config';
+import { useAuthStore } from '../../features/auth/presentation/store';
 
 /**
  * Error personalizado de la API
@@ -49,11 +50,11 @@ const createHttpClient = (): AxiosInstance => {
   // Request interceptor - agregar token de auth si existe
   client.interceptors.request.use(
     async (config: InternalAxiosRequestConfig) => {
-      // TODO: Obtener token del store de auth (Zustand)
-      // const token = useAuthStore.getState().token;
-      // if (token) {
-      //   config.headers.Authorization = `Bearer ${token}`;
-      // }
+      // Obtener token del store de auth (Zustand)
+      const token = useAuthStore.getState().token;
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
       
       // Log en desarrollo
       if (__DEV__) {
@@ -84,10 +85,10 @@ const createHttpClient = (): AxiosInstance => {
       const statusCode = error.response?.status || 0;
       const message = getErrorMessage(error);
       
-      // TODO: Si es 401, limpiar sesión y redirigir a login
-      // if (statusCode === API_ERROR_CODES.UNAUTHORIZED) {
-      //   useAuthStore.getState().logout();
-      // }
+      // Si es 401, limpiar sesión automáticamente
+      if (statusCode === API_ERROR_CODES.UNAUTHORIZED) {
+        useAuthStore.getState().logout();
+      }
 
       throw new ApiError(message, statusCode, error);
     }
